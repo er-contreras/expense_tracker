@@ -1,5 +1,6 @@
 require_relative '../../../app/api'
 require 'rack/test'
+require 'pry-byebug'
 
 module ExpenseTracker
   RSpec.describe API do
@@ -56,8 +57,15 @@ module ExpenseTracker
 
     describe 'GET /expenses/:date' do
       context 'when expenses exist on the given date' do
-        it 'returns the expense records as JSON' do
+        before do
+          allow(ledger).to receive(:expenses_on)
+            .with('2017-06-10')
+            .and_return(%w[expense_1 expense_2])
+        end
 
+        it 'returns the expense records as JSON' do
+          get '/expenses/2017-06-10'
+          expect(parsed_response).to eq(%w[expense_1 expense_2])
         end
 
         it 'response with a 200 (OK)'
