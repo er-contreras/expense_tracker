@@ -68,7 +68,10 @@ module ExpenseTracker
           expect(parsed_response).to eq(%w[expense_1 expense_2])
         end
 
-        it 'response with a 200 (OK)'
+        it 'response with a 200 (OK)' do
+          get '/expenses/2017-06-10'
+          expect(last_response.status).to eq(200)
+        end
       end
 
       context 'when there are no expenses on the given date' do
