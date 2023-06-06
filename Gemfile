@@ -10,3 +10,6 @@ gem 'sinatra'
 gem 'webrick'
 # gem 'pry'
 gem 'pry-byebug'
+
+gem 'sequel'
+gem 'sqlite3'
